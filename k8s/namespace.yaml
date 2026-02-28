@@ -1,0 +1,10 @@
+# namespace.yaml - Kubernetes Namespace for SWE645 HW2 Student Survey Application
+# This file creates a dedicated namespace to isolate the Student Survey application resources.
+# Author: Sai Nishitha Muraharisetty | Course: SWE645
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: studentsurvey645
+  labels:
+    project: swe645-hw2

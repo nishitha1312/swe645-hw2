@@ -1,0 +1,20 @@
+# service.yaml - Kubernetes LoadBalancer Service for SWE645 HW2 Student Survey Application
+# This manifest exposes the Student Survey deployment via an AWS LoadBalancer on port 8080.
+# Author: Sai Nishitha Muraharisetty | Course: SWE645
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: studentsurvey-service
+  namespace: studentsurvey645
+  labels:
+    app: studentsurvey
+spec:
+  type: LoadBalancer
+  selector:
+    app: studentsurvey
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
