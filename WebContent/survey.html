@@ -1,0 +1,416 @@
+<!--
+  File: survey.html
+  Purpose: Student survey form for prospective students to provide feedback about the university campus.
+  Author: Sai Nishitha Muraharisetty
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Survey - SWE 645</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .gmu-green {
+      background-color: #006633 !important;
+      color: white !important;
+    }
+    .gmu-gold {
+      background-color: #FFCC33 !important;
+      color: #004d26 !important;
+    }
+    .gmu-dark-green {
+      background-color: #004d26 !important;
+      color: white !important;
+    }
+    .gmu-green-text {
+      color: #006633 !important;
+    }
+    .gmu-gold-text {
+      color: #FFCC33 !important;
+    }
+    .gmu-btn-green:hover {
+      background-color: #004d26 !important;
+    }
+    .gmu-btn-gold:hover {
+      background-color: #e6b800 !important;
+    }
+    .gmu-border-green {
+      border: 2px solid #006633 !important;
+    }
+    .form-section {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      margin-bottom: 4px;
+      font-weight: 500;
+      color: #004d26;
+    }
+    .checkbox-group label,
+    .radio-group label {
+      display: inline;
+      font-weight: normal;
+      margin-left: 5px;
+      color: #333;
+    }
+    .checkbox-group,
+    .radio-group {
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+    .checkbox-item,
+    .radio-item {
+      margin: 6px 0;
+    }
+    input[type="checkbox"],
+    input[type="radio"] {
+      accent-color: #006633;
+    }
+    .thank-you-message {
+      display: none;
+    }
+    .checkmark-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #006633;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .checkmark {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #FFCC33;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body class="w3-light-grey">
+
+<!-- Header -->
+<header class="w3-container gmu-green w3-center w3-padding-16">
+  <h1 class="w3-xxlarge">George Mason University</h1>
+  <h2 class="w3-xlarge">Student Campus Survey</h2>
+  <p class="gmu-gold-text" style="font-size: 18px;"><strong>We value your feedback about our university</strong></p>
+</header>
+
+<!-- Survey Form -->
+<div class="w3-content w3-padding" style="max-width:900px; margin-top:30px; margin-bottom:30px;">
+  
+  <!-- Thank You Message (Hidden by default) -->
+  <div id="thankYouMessage" class="thank-you-message w3-card-4 w3-white w3-padding w3-center">
+    <div class="checkmark-circle">
+      <div class="checkmark"></div>
+    </div>
+    <h2 class="gmu-green-text">Thank You for Your Feedback!</h2>
+    <p class="w3-large">Your survey has been submitted successfully.</p>
+    <p class="w3-text-grey">We appreciate you taking the time to share your thoughts about George Mason University.</p>
+    <div class="w3-margin-top">
+      <a href="index.html" class="w3-button gmu-green w3-large w3-round gmu-btn-green" style="font-weight: bold;">
+        Return to Homepage
+      </a>
+      <button onclick="location.reload()" class="w3-button gmu-gold w3-large w3-round gmu-btn-gold" style="font-weight: bold; margin-left: 10px;">
+        Submit Another Response
+      </button>
+    </div>
+    <p class="w3-small w3-text-grey w3-margin-top">
+      <em>Note: This is a demonstration form for SWE 645 Assignment 1. No data has been permanently stored.</em>
+    </p>
+  </div>
+
+  <!-- Survey Form (Visible by default) -->
+  <form id="surveyForm" class="w3-card-4 w3-white w3-padding" onsubmit="return handleSubmit(event)">
+    
+    <h2 class="w3-center gmu-green-text">Student Information</h2>
+    <p class="w3-center w3-text-grey">Please fill out all required fields marked with *</p>
+    
+    <div class="w3-row-padding">
+      <div class="w3-half form-section">
+        <label for="firstName">First Name *</label>
+        <input class="w3-input gmu-border-green w3-round" 
+               type="text" 
+               id="firstName" 
+               name="firstName" 
+               placeholder="Enter your first name"
+               required>
+      </div>
+      
+      <div class="w3-half form-section">
+        <label for="lastName">Last Name *</label>
+        <input class="w3-input gmu-border-green w3-round" 
+               type="text" 
+               id="lastName" 
+               name="lastName" 
+               placeholder="Enter your last name"
+               required>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <label for="streetAddress">Street Address *</label>
+      <input class="w3-input gmu-border-green w3-round" 
+             type="text" 
+             id="streetAddress" 
+             name="streetAddress" 
+             placeholder="123 Main Street"
+             required>
+    </div>
+
+    <div class="w3-row-padding">
+      <div class="w3-half form-section">
+        <label for="city">City *</label>
+        <input class="w3-input gmu-border-green w3-round" 
+               type="text" 
+               id="city" 
+               name="city" 
+               placeholder="Enter city"
+               required>
+      </div>
+      
+      <div class="w3-quarter form-section">
+        <label for="state">State *</label>
+        <input class="w3-input gmu-border-green w3-round" 
+               type="text" 
+               id="state" 
+               name="state" 
+               placeholder="VA"
+               maxlength="2"
+               required>
+      </div>
+      
+      <div class="w3-quarter form-section">
+        <label for="zip">Zip Code *</label>
+        <input class="w3-input gmu-border-green w3-round" 
+               type="text" 
+               id="zip" 
+               name="zip" 
+               placeholder="22030"
+               pattern="[0-9]{5}"
+               title="Please enter a 5-digit zip code"
+               required>
+      </div>
+    </div>
+
+    <div class="w3-row-padding">
+      <div class="w3-half form-section">
+        <label for="telephone">Telephone Number *</label>
+        <input class="w3-input gmu-border-green w3-round" 
+               type="tel" 
+               id="telephone" 
+               name="telephone" 
+               placeholder="703-123-4567"
+               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+               title="Format: 123-456-7890"
+               required>
+      </div>
+      
+      <div class="w3-half form-section">
+        <label for="email">Email Address *</label>
+        <input class="w3-input gmu-border-green w3-round" 
+               type="email" 
+               id="email" 
+               name="email" 
+               placeholder="yourname@gmu.edu"
+               required>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <label for="surveyDate">Date of Survey *</label>
+      <input class="w3-input gmu-border-green w3-round" 
+             type="date" 
+             id="surveyDate" 
+             name="surveyDate" 
+             required>
+    </div>
+
+    <hr class="w3-margin-top w3-margin-bottom" style="border-color: #FFCC33; border-width: 2px;">
+
+    <h3 class="gmu-green-text">Campus Feedback</h3>
+
+    <div class="form-section">
+      <p><strong style="color: #004d26;">What did you like most about the campus? (Check all that apply)</strong></p>
+      <div class="checkbox-group">
+        <div class="checkbox-item">
+          <input type="checkbox" id="likeStudents" name="campusLikes" value="students">
+          <label for="likeStudents">Students</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="likeLocation" name="campusLikes" value="location">
+          <label for="likeLocation">Location</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="likeCampus" name="campusLikes" value="campus">
+          <label for="likeCampus">Campus</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="likeAtmosphere" name="campusLikes" value="atmosphere">
+          <label for="likeAtmosphere">Atmosphere</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="likeDorms" name="campusLikes" value="dormRooms">
+          <label for="likeDorms">Dorm Rooms</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="likeSports" name="campusLikes" value="sports">
+          <label for="likeSports">Sports</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <p><strong style="color: #004d26;">How did you become interested in the university?</strong></p>
+      <div class="radio-group">
+        <div class="radio-item">
+          <input type="radio" id="interestFriends" name="interestSource" value="friends">
+          <label for="interestFriends">Friends</label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" id="interestTV" name="interestSource" value="television">
+          <label for="interestTV">Television</label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" id="interestInternet" name="interestSource" value="internet">
+          <label for="interestInternet">Internet</label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" id="interestOther" name="interestSource" value="other">
+          <label for="interestOther">Other</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <label for="recommendation">Likelihood of recommending this school to other prospective students *</label>
+      <select class="w3-select gmu-border-green w3-round" 
+              id="recommendation" 
+              name="recommendation" 
+              required>
+        <option value="" disabled selected>Choose your answer</option>
+        <option value="veryLikely">Very Likely</option>
+        <option value="likely">Likely</option>
+        <option value="unlikely">Unlikely</option>
+      </select>
+    </div>
+
+    <div class="form-section">
+      <label for="raffle">Raffle Entry *</label>
+      <input class="w3-input gmu-border-green w3-round" 
+             type="text" 
+             id="raffle" 
+             name="raffle" 
+             placeholder="Enter at least 10 comma-separated numbers (1-100): e.g., 5,12,23,34,45,56,67,78,89,90"
+             title="Enter at least 10 comma-separated numbers between 1 and 100"
+             required>
+      <small class="w3-text-grey">Please enter at least 10 comma-separated numbers ranging from 1 to 100</small>
+    </div>
+
+    <div class="form-section">
+      <label for="comments">Additional Comments</label>
+      <textarea class="w3-input gmu-border-green w3-round" 
+                id="comments" 
+                name="comments" 
+                rows="5" 
+                placeholder="Please share any additional thoughts or feedback..."></textarea>
+    </div>
+
+    <hr class="w3-margin-top w3-margin-bottom" style="border-color: #FFCC33; border-width: 2px;">
+
+    <!-- Form Buttons -->
+    <div class="w3-center w3-margin-top w3-margin-bottom">
+      <button class="w3-button gmu-green w3-large w3-round gmu-btn-green" 
+              type="submit" 
+              style="margin: 5px; font-weight: bold;">
+        Submit Survey
+      </button>
+      <button class="w3-button w3-red w3-large w3-round w3-hover-pink" 
+              type="reset" 
+              style="margin: 5px; font-weight: bold;">
+        Cancel
+      </button>
+    </div>
+  </form>
+
+  <!-- Back to Home Button (only shown when form is visible) -->
+  <div id="backButton" class="w3-center w3-margin-top">
+    <a href="index.html" class="w3-button gmu-gold w3-round gmu-btn-gold" style="font-weight: bold;">← Back to Homepage</a>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container gmu-green w3-center w3-padding-16">
+  <p>&copy; 2026 Sai Nishitha Muraharisetty | George Mason University</p>
+  <p class="w3-small">SWE 645 - Assignment 1</p>
+</footer>
+
+<!-- JavaScript for Form Submission -->
+<script>
+    function validateRaffle() {
+  const raffleInput = document.getElementById('raffle').value.trim();
+  
+  if (!raffleInput) {
+    alert('Please enter raffle numbers');
+    return false;
+  }
+  
+  const numbers = raffleInput.split(',').map(n => n.trim());
+  
+  if (numbers.length < 10) {
+    alert('Please enter at least 10 numbers. You entered ' + numbers.length + ' number(s).');
+    return false;
+  }
+  
+  for (let i = 0; i < numbers.length; i++) {
+    const num = numbers[i];
+    const n = parseInt(num);
+    
+    if (isNaN(n)) {
+      alert('Invalid entry: "' + num + '" is not a valid number.');
+      return false;
+    }
+    
+    if (n < 1 || n > 100) {
+      alert('All numbers must be between 1 and 100. Found: ' + n);
+      return false;
+    }
+  }
+  
+  return true;
+}
+function handleSubmit(event) {
+    
+  // Prevent the default form submission
+  event.preventDefault();
+
+  // Validate raffle field
+if (!validateRaffle()) {
+  return false;
+}
+  
+  // Hide the form
+  document.getElementById('surveyForm').style.display = 'none';
+  document.getElementById('backButton').style.display = 'none';
+  
+  // Show the thank you message
+  document.getElementById('thankYouMessage').style.display = 'block';
+  
+  // Scroll to top to see the thank you message
+  window.scrollTo(0, 0);
+  
+  // Return false to prevent any form submission
+  return false;
+}
+</script>
+
+</body>
+</html>

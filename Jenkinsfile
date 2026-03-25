@@ -1,5 +1,6 @@
 // Jenkinsfile - CI/CD Pipeline for SWE645 HW2 Student Survey Application
-// This pipeline builds a Docker image, pushes it to Docker Hub, and deploys to Kubernetes.
+// This pipeline pulls source code, builds a WAR file, creates a Docker image,
+// pushes to Docker Hub, and deploys to Kubernetes automatically on every commit.
 // Author: Sai Nishitha Muraharisetty | Course: SWE645
 
 pipeline {
@@ -18,8 +19,20 @@ pipeline {
 
         stage('Checkout Source Code') {
             steps {
+                // Pull latest source code from GitHub repository
                 checkout scm
                 echo "Source code checked out successfully"
+            }
+        }
+
+        stage('Build WAR File') {
+            steps {
+                script {
+                    // Build WAR file from source HTML/JSP files in WebContent folder
+                    sh 'rm -f *.war'
+                    sh 'cd WebContent && jar -cvf ../StudentSurvey.war .'
+                    echo "WAR file built successfully: StudentSurvey.war"
+                }
             }
         }
 
@@ -58,7 +71,7 @@ pipeline {
                         -n ${K8S_NAMESPACE}
                     """
                     sh "kubectl rollout status deployment/${DEPLOYMENT_NAME} -n ${K8S_NAMESPACE}"
-                    echo "Deployment updated successfully"
+                    echo "Deployment updated successfully to image: ${BUILD_TIMESTAMP}"
                 }
             }
         }

@@ -1,0 +1,63 @@
+<!--
+  File: error.html
+  Purpose: Error page displayed when the main page is unavailable or an error occurs.
+  Author: Sai Nishitha Muraharisetty
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Error - Page Not Available</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .gmu-green {
+      background-color: #006633 !important;
+      color: white !important;
+    }
+    .gmu-gold {
+      background-color: #FFCC33 !important;
+      color: #004d26 !important;
+    }
+    .gmu-green-text {
+      color: #006633 !important;
+    }
+    .gmu-btn-green:hover {
+      background-color: #004d26 !important;
+    }
+    .error-container {
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body class="w3-light-grey">
+
+<div class="w3-content error-container">
+  <div class="w3-card-4 w3-white w3-padding-large w3-center" style="max-width:600px; border: 3px solid #006633;">
+    <div class="w3-container">
+      <h1 class="w3-jumbo gmu-green-text">404</h1>
+      <h2 class="w3-text-grey">Page Not Available</h2>
+      <p class="w3-large">Sorry, the page you are looking for could not be found or is temporarily unavailable.</p>
+      <p class="w3-text-grey">Please try again later or return to the homepage.</p>
+      
+      <div class="w3-margin-top w3-margin-bottom">
+        <a href="index.html" class="w3-button gmu-green w3-large w3-round gmu-btn-green" style="font-weight: bold;">
+          Go to Homepage
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="w3-container gmu-green w3-center w3-padding-16" style="position: fixed; bottom: 0; width: 100%;">
+  <p>&copy; 2026 Sai Nishitha Muraharisetty | George Mason University</p>
+</footer>
+
+</body>
+</html>
