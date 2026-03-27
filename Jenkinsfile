@@ -7,16 +7,15 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_PASS    = credentials('docker-pass')
-        DOCKERHUB_USER    = 'nishitha1312'
-        IMAGE_NAME        = 'studentsurvey645'
-        K8S_NAMESPACE     = 'studentsurvey645'
-        DEPLOYMENT_NAME   = 'studentsurvey-deployment'
-        CONTAINER_NAME    = 'studentsurvey'
+        DOCKERHUB_PASS = credentials('docker-pass')
+        DOCKERHUB_USER = 'nishitha1312'
+        IMAGE_NAME = 'studentsurvey645'
+        K8S_NAMESPACE = 'studentsurvey645'
+        DEPLOYMENT_NAME = 'studentsurvey-deployment'
+        CONTAINER_NAME = 'studentsurvey'
     }
 
     stages {
-
         stage('Checkout Source Code') {
             steps {
                 // Pull latest source code from GitHub repository
@@ -60,26 +59,27 @@ pipeline {
         }
 
         stage('Deploy to Kubernetes') {
-        steps {
-            script {
-                sh "kubectl apply -f k8s/namespace.yaml --validate=false"
-                sh "kubectl apply -f k8s/deployment.yaml -n ${K8S_NAMESPACE} --validate=false"
-                sh "kubectl apply -f k8s/service.yaml -n ${K8S_NAMESPACE} --validate=false"
-                sh """
-                    kubectl set image deployment/${DEPLOYMENT_NAME} \
-                    ${CONTAINER_NAME}=${DOCKERHUB_USER}/${IMAGE_NAME}:${BUILD_TIMESTAMP} \
-                    -n ${K8S_NAMESPACE}
-                """
-                sh "kubectl rollout status deployment/${DEPLOYMENT_NAME} -n ${K8S_NAMESPACE}"
-                echo "Deployment updated successfully to image: ${BUILD_TIMESTAMP}"
+            steps {
+                script {
+                    sh "kubectl apply -f k8s/namespace.yaml --server=https://127.0.0.1:6443 --insecure-skip-tls-verify=true"
+                    sh "kubectl apply -f k8s/deployment.yaml -n ${K8S_NAMESPACE} --server=https://127.0.0.1:6443 --insecure-skip-tls-verify=true"
+                    sh "kubectl apply -f k8s/service.yaml -n ${K8S_NAMESPACE} --server=https://127.0.0.1:6443 --insecure-skip-tls-verify=true"
+                    sh """
+                        kubectl set image deployment/${DEPLOYMENT_NAME} \
+                        ${CONTAINER_NAME}=${DOCKERHUB_USER}/${IMAGE_NAME}:${BUILD_TIMESTAMP} \
+                        -n ${K8S_NAMESPACE} --server=https://127.0.0.1:6443 --insecure-skip-tls-verify=true
+                    """
+                    sh "kubectl rollout status deployment/${DEPLOYMENT_NAME} -n ${K8S_NAMESPACE} --server=https://127.0.0.1:6443 --insecure-skip-tls-verify=true"
+                    echo "Deployment updated successfully to image: ${BUILD_TIMESTAMP}"
+                }
             }
         }
-    }
+
         stage('Verify Deployment') {
             steps {
                 script {
-                    sh "kubectl get pods -n ${K8S_NAMESPACE}"
-                    sh "kubectl get services -n ${K8S_NAMESPACE}"
+                    sh "kubectl get pods -n ${K8S_NAMESPACE} --server=https://127.0.0.1:6443 --insecure-skip-tls-verify=true"
+                    sh "kubectl get services -n ${K8S_NAMESPACE} --server=https://127.0.0.1:6443 --insecure-skip-tls-verify=true"
                     echo "All pods are running successfully"
                 }
             }
