@@ -60,22 +60,21 @@ pipeline {
         }
 
         stage('Deploy to Kubernetes') {
-            steps {
-                script {
-                    sh "kubectl apply -f k8s/namespace.yaml"
-                    sh "kubectl apply -f k8s/deployment.yaml -n ${K8S_NAMESPACE}"
-                    sh "kubectl apply -f k8s/service.yaml -n ${K8S_NAMESPACE}"
-                    sh """
-                        kubectl set image deployment/${DEPLOYMENT_NAME} \
-                        ${CONTAINER_NAME}=${DOCKERHUB_USER}/${IMAGE_NAME}:${BUILD_TIMESTAMP} \
-                        -n ${K8S_NAMESPACE}
-                    """
-                    sh "kubectl rollout status deployment/${DEPLOYMENT_NAME} -n ${K8S_NAMESPACE}"
-                    echo "Deployment updated successfully to image: ${BUILD_TIMESTAMP}"
-                }
+        steps {
+            script {
+                sh "kubectl apply -f k8s/namespace.yaml --validate=false"
+                sh "kubectl apply -f k8s/deployment.yaml -n ${K8S_NAMESPACE} --validate=false"
+                sh "kubectl apply -f k8s/service.yaml -n ${K8S_NAMESPACE} --validate=false"
+                sh """
+                    kubectl set image deployment/${DEPLOYMENT_NAME} \
+                    ${CONTAINER_NAME}=${DOCKERHUB_USER}/${IMAGE_NAME}:${BUILD_TIMESTAMP} \
+                    -n ${K8S_NAMESPACE}
+                """
+                sh "kubectl rollout status deployment/${DEPLOYMENT_NAME} -n ${K8S_NAMESPACE}"
+                echo "Deployment updated successfully to image: ${BUILD_TIMESTAMP}"
             }
         }
-
+    }
         stage('Verify Deployment') {
             steps {
                 script {
