@@ -67,7 +67,7 @@ pipeline {
                         ${CONTAINER_NAME}=${DOCKERHUB_USER}/${IMAGE_NAME}:${BUILD_TIMESTAMP} \
                         -n ${K8S_NAMESPACE} --server=https://172.31.21.3:6443 --insecure-skip-tls-verify=true
                     """
-                    sh "kubectl rollout status deployment/${DEPLOYMENT_NAME} -n ${K8S_NAMESPACE} --server=https://172.31.21.3:6443 --insecure-skip-tls-verify=true"
+                    sh "kubectl rollout status deployment/${DEPLOYMENT_NAME} -n ${K8S_NAMESPACE} --server=https://172.31.21.3:6443 --insecure-skip-tls-verify=true --timeout=300s"
                     echo "Deployment updated successfully to image: ${BUILD_TIMESTAMP}"
                 }
             }
