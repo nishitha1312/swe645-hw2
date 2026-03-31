@@ -12,7 +12,7 @@ pipeline {
         K8S_NAMESPACE     = 'studentsurvey645'
         DEPLOYMENT_NAME   = 'studentsurvey-deployment'
         CONTAINER_NAME    = 'studentsurvey'
-        RANCHER_IP        = '54.164.91.52'
+        RANCHER_IP        = '13.221.95.185'
         RANCHER_CONTAINER = 'b4994e26564d'
     }
 
